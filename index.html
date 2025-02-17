@@ -3,17 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DNSTQRC</title>
+    <title>QR Sticker</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class' // Enables manual dark mode switching
+        };
+        
+        // Function to toggle dark mode and store preference
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            if (html.classList.contains("dark")) {
+                html.classList.remove("dark");
+                localStorage.setItem("theme", "light");
+            } else {
+                html.classList.add("dark");
+                localStorage.setItem("theme", "dark");
+            }
+        }
+
+        // Load stored preference or system default
+        function loadTheme() {
+            const storedTheme = localStorage.getItem("theme");
+            if (storedTheme === "dark" || (!storedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+                document.documentElement.classList.add("dark");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadTheme);
+    </script>
 </head>
-<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
+<body class="bg-white text-black dark:bg-gray-900 dark:text-white flex items-center justify-center min-h-screen p-4">
     <div class="max-w-md w-full text-center">
-        <h1 class="text-3xl font-bold mb-4">Do Not Scan This Quick Response Code</h1>
+        <!-- Dark Mode Toggle Switch -->
+        <div class="flex justify-end">
+            <button onclick="toggleDarkMode()" class="p-2 bg-gray-200 dark:bg-gray-800 rounded-lg">
+                <span id="theme-icon" class="text-lg">🌞</span>
+            </button>
+        </div>
+
+        <h1 class="text-3xl font-bold mb-4">Scan to Visit</h1>
         <div class="flex justify-center">
-            <div class="bg-white bg-opacity-20 p-4 rounded-lg">
-                <img src="dnstqrc.png" alt="QR Code" class="w-48 h-48 opacity-80">
+            <div class="bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-20 p-4 rounded-lg">
+                <img src="qr-code.png" alt="QR Code" class="w-48 h-48 opacity-80">
             </div>
         </div>
+        <p class="text-gray-600 dark:text-gray-400 mt-4">Do not scan this quick-response code</p>
     </div>
+
+    <script>
+        // Update the toggle button icon
+        function updateThemeIcon() {
+            const themeIcon = document.getElementById("theme-icon");
+            if (document.documentElement.classList.contains("dark")) {
+                themeIcon.textContent = "🌙"; // Moon icon for dark mode
+            } else {
+                themeIcon.textContent = "🌞"; // Sun icon for light mode
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", updateThemeIcon);
+        document.querySelector("button").addEventListener("click", updateThemeIcon);
+    </script>
 </body>
 </html>
