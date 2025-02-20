@@ -32,6 +32,20 @@
 
         document.addEventListener("DOMContentLoaded", loadTheme);
     </script>
+    <style>
+    .fullscreen {
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 50;
+    }
+    </style>
 </head>
 <body class="bg-white text-black dark:bg-gray-900 dark:text-white flex items-center justify-center min-h-screen p-4">
     <div class="max-w-md w-full text-center">
@@ -45,7 +59,7 @@
         <h1 class="text-3xl font-bold mb-4">Do not scan this quick-response code</h1>
         <div class="flex justify-center">
             <div class="bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-20 p-4 rounded-lg">
-                <img src="dnstqrc.png" alt="QR Code" class="w-48 h-48 opacity-80">
+                <img src="dnstqrc.png" alt="QR Code" class="w-48 h-48 opacity-80 cursor-pointer" onclick="toggleFullscreen(this)">
             </div>
         </div>
     </div>
@@ -63,6 +77,18 @@
 
         document.addEventListener("DOMContentLoaded", updateThemeIcon);
         document.querySelector("button").addEventListener("click", updateThemeIcon);
+    </script>
+    <script>
+    function toggleFullscreen(img) {
+        const body = document.body;
+        if (body.classList.contains("fullscreen")) {
+            body.classList.remove("fullscreen");
+            img.classList.remove("w-screen", "h-screen", "object-contain");
+        } else {
+            body.classList.add("fullscreen");
+            img.classList.add("w-screen", "h-screen", "object-contain");
+        }
+    }
     </script>
 </body>
 </html>
