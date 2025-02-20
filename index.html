@@ -32,6 +32,35 @@
 
         document.addEventListener("DOMContentLoaded", loadTheme);
     </script>
+<style>
+    /* Fullscreen overlay */
+    .qr-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+
+    .qr-overlay img {
+        max-width: 90vw;
+        max-height: 90vh;
+        cursor: pointer;
+    }
+
+    .qr-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+</style>
 </head>
 <body class="bg-white text-black dark:bg-gray-900 dark:text-white flex items-center justify-center min-h-screen p-4">
     <div class="max-w-md w-full text-center">
@@ -45,9 +74,12 @@
         <h1 class="text-3xl font-bold mb-4">Do not scan this quick-response code</h1>
         <div class="flex justify-center">
             <div class="bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-20 p-4 rounded-lg">
-                <img src="dnstqrc.png" alt="QR Code" class="w-48 h-48 opacity-80">
+                <img src="dnstqrc.png" alt="Do not scan this quick-response code" class="w-48 h-48 opacity-80 cursor-pointer" onclick="openOverlay()">
             </div>
         </div>
+    </div>
+    <div id="qrOverlay" class="qr-overlay" onclick="closeOverlay()">
+        <img sec="dnstqrc.png" alt="Do not scan this quick-response code">
     </div>
 
     <script>
@@ -64,5 +96,14 @@
         document.addEventListener("DOMContentLoaded", updateThemeIcon);
         document.querySelector("button").addEventListener("click", updateThemeIcon);
     </script>
+ <script>
+    function openOverlay() {
+        document.getElementById("qrOverlay").classList.add("active");
+    }
+
+    function closeOverlay() {
+        document.getElementById("qrOverlay").classList.remove("active");
+    }
+</script>
 </body>
 </html>
