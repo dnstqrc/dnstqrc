@@ -32,6 +32,7 @@
 
         document.addEventListener("DOMContentLoaded", loadTheme);
     </script>
+
 <style>
     /* Fullscreen overlay */
     .qr-overlay {
@@ -74,7 +75,13 @@
         <h1 class="text-3xl font-bold mb-4">Do not scan this quick-response code</h1>
         <div class="flex justify-center">
             <div class="bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-20 p-4 rounded-lg">
+
+   
+            
+              
+          
                 <img src="dnstqrc.png" alt="Do not scan this quick-response code" class="w-48 h-48 opacity-80 cursor-pointer" onclick="openOverlay()">
+
             </div>
         </div>
     </div>
@@ -96,6 +103,7 @@
         document.addEventListener("DOMContentLoaded", updateThemeIcon);
         document.querySelector("button").addEventListener("click", updateThemeIcon);
     </script>
+
  <script>
     function openOverlay() {
         document.getElementById("qrOverlay").classList.add("active");
