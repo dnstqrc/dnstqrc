@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Sticker</title>
+    <title>DNSTQRC</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { darkMode: 'class' };
@@ -75,15 +75,12 @@
         <span id="theme-icon">🌞</span>
     </button>
 
-    <h1 class="text-3xl font-bold mb-4">Scan to Visit</h1>
+    <h1 class="text-3xl font-bold mb-4">Do not scan this quick-response code</h1>
 
     <!-- Clickable QR Code -->
     <div class="flex justify-center">
         <img src="dnstqrc.png" alt="Do not scan this quick-response code" class="w-48 h-48 opacity-80 cursor-pointer" onclick="openOverlay()">
     </div>
-
-    <p class="text-gray-600 dark:text-gray-400 mt-4">Point your camera at the QR code to open the link.</p>
-
     <!-- Fullscreen QR Code Overlay -->
     <div id="qrOverlay" class="qr-overlay" onclick="closeOverlay()">
         <div class="qr-container">
