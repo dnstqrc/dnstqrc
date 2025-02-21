@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DNSTQRC</title>
+    <title>QR Sticker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class' // Enables manual dark mode switching
-        };
-        
-        // Function to toggle dark mode and store preference
+        tailwind.config = { darkMode: 'class' };
+
         function toggleDarkMode() {
             const html = document.documentElement;
             if (html.classList.contains("dark")) {
@@ -22,7 +19,6 @@
             }
         }
 
-        // Load stored preference or system default
         function loadTheme() {
             const storedTheme = localStorage.getItem("theme");
             if (storedTheme === "dark" || (!storedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
@@ -32,86 +28,86 @@
 
         document.addEventListener("DOMContentLoaded", loadTheme);
     </script>
+    <style>
+        /* Fullscreen overlay */
+        .qr-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
 
-<style>
-    /* Fullscreen overlay */
-    .qr-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.9);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 100;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    }
+        .qr-overlay img {
+            max-width: 90vw;
+            max-height: 90vh;
+            cursor: pointer;
+        }
 
-    .qr-overlay img {
-        max-width: 90vw;
-        max-height: 90vh;
-        cursor: pointer;
-    }
+        .qr-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
-    .qr-overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
-</style>
+        /* QR container with white background */
+        .qr-container {
+            background-color: white;
+            padding: 16px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
-<body class="bg-white text-black dark:bg-gray-900 dark:text-white flex items-center justify-center min-h-screen p-4">
-    <div class="max-w-md w-full text-center">
-        <!-- Dark Mode Toggle Switch -->
-        <div class="flex justify-end">
-            <button onclick="toggleDarkMode()" class="p-2 bg-gray-200 dark:bg-gray-800 rounded-lg">
-                <span id="theme-icon" class="text-lg">🌞</span>
-            </button>
-        </div>
+<body class="bg-white text-black dark:bg-gray-900 dark:text-white flex flex-col items-center justify-center min-h-screen p-4">
 
-        <h1 class="text-3xl font-bold mb-4">Do not scan this quick-response code</h1>
-        <div class="flex justify-center">
-            <div class="bg-black bg-opacity-10 dark:bg-white dark:bg-opacity-20 p-4 rounded-lg">
+    <!-- Dark Mode Toggle Button -->
+    <button onclick="toggleDarkMode()" class="p-2 bg-gray-200 dark:bg-gray-800 rounded-lg self-end mb-4">
+        <span id="theme-icon">🌞</span>
+    </button>
 
-   
-            
-              
-          
-                <img src="dnstqrc.png" alt="Do not scan this quick-response code" class="w-48 h-48 opacity-80 cursor-pointer" onclick="openOverlay()">
+    <h1 class="text-3xl font-bold mb-4">Scan to Visit</h1>
 
-            </div>
-        </div>
+    <!-- Clickable QR Code -->
+    <div class="flex justify-center">
+        <img src="dnstqrc.png" alt="Do not scan this quick-response code" class="w-48 h-48 opacity-80 cursor-pointer" onclick="openOverlay()">
     </div>
+
+    <p class="text-gray-600 dark:text-gray-400 mt-4">Point your camera at the QR code to open the link.</p>
+
+    <!-- Fullscreen QR Code Overlay -->
     <div id="qrOverlay" class="qr-overlay" onclick="closeOverlay()">
-        <img src="dnstqrc.png" alt="Do not scan this quick-response code">
+        <div class="qr-container">
+            <img src="dnstqrc.png" alt="Do not scan this quick-response code">
+        </div>
     </div>
 
     <script>
-        // Update the toggle button icon
+        function openOverlay() {
+            document.getElementById("qrOverlay").classList.add("active");
+        }
+
+        function closeOverlay() {
+            document.getElementById("qrOverlay").classList.remove("active");
+        }
+
         function updateThemeIcon() {
             const themeIcon = document.getElementById("theme-icon");
-            if (document.documentElement.classList.contains("dark")) {
-                themeIcon.textContent = "🌙"; // Moon icon for dark mode
-            } else {
-                themeIcon.textContent = "🌞"; // Sun icon for light mode
-            }
+            themeIcon.textContent = document.documentElement.classList.contains("dark") ? "🌙" : "🌞";
         }
 
         document.addEventListener("DOMContentLoaded", updateThemeIcon);
         document.querySelector("button").addEventListener("click", updateThemeIcon);
     </script>
 
- <script>
-    function openOverlay() {
-        document.getElementById("qrOverlay").classList.add("active");
-    }
-
-    function closeOverlay() {
-        document.getElementById("qrOverlay").classList.remove("active");
-    }
-</script>
 </body>
 </html>
