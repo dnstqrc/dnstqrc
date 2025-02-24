@@ -78,7 +78,9 @@
 
     <!-- Clickable QR Code -->
     <div class="flex justify-center">
-        <img src="dnstqrc.png" alt="Do not scan this quick-response code" class="w-48 h-48 opacity-80 cursor-pointer" onclick="openOverlay()">
+        <div class="bg-white p-4 rounded-lg shadow-lg">
+            <img src="dnstqrc.png" alt="Do not scan this quick-response code" class="w-48 h-48 opacity-80 cursor-pointer" onclick="openOverlay()">
+        </div>
     </div>
     <!-- Fullscreen QR Code Overlay -->
     <div id="qrOverlay" class="qr-overlay" onclick="closeOverlay()">
